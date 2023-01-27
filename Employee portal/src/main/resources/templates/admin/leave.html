@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+</head>
+<body>
+
+<div class="container">
+
+<h2 style="padding: 30px">Leave List</h2>
+<%@include file="businessMessage.jsp" %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">From Date</th>
+      <th scope="col">To Date</th>
+      <th scope="col">Email</th>
+      <th scope="col">Type</th>
+      <th scope="col">Status</th>
+      <c:if test="${user.userRole == 'Admin' }">
+      <th scope="col">Action</th>
+      </c:if>
+    </tr>
+  </thead>
+  <tbody>
+  <c:forEach items="${list}" var="leavelist" varStatus="u">
+    <tr>     
+      <td>${leavelist.fromDate}</td>
+      <td>${leavelist.toDate}</td>
+      <td>${leavelist.email}</td>
+      <td>${leavelist.type}</td>
+      <td>${leavelist.status}</td>
+      
+      <c:if test="${user.userRole == 'Admin' }">
+   		<td>      
+      		<a href="${pageContext.request.contextPath}/leaveEdit?id=${leavelist.id}">Edit</a>
+      		<a href="${pageContext.request.contextPath}/leaveDelete?id=${leavelist.id}">Delete</a>           
+      	</td>   
+ 		</c:if>
+      
+
+    </tr>
+   </c:forEach>
+  </tbody>
+</table>
+
+</div>
+
+</body>
+</html>

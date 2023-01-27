@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>this is home page</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="card-body my-5">
+					<div class="container text-center">
+						<img src="" style="height: 200px; width: 200px"
+							class="my_profile_picture" th:src="@{'/img/contact_logo.png'}"
+							alt="profile photo" />
+					</div>
+					<h1
+						class="text-center mt-3 text-secondary font-italic font-weight-light">
+						Start Adding your contact list of your colleagues on cloud...</h1>
+
+					<a th:href="@{/admin/add-contact}"
+						class="btn btn-primary mt-4 btn-block text-uppercase">Add
+						New Contact</a>
+						
+						<hr />
+					<div id="register-link" class="text-right">
+                                <a href="/signup/" class="btn btn-primary mt-4 btn-block text-uppercase">Add employees </a>
+                            </div>
+                       <div>  <a th:href="@{User:}"
+						class="btn btn-primary mt-4 btn-block text-uppercase">employess details</a>   
+						</div>	
+					<table class="table table-bordered table-striped">
+			
+				<thead>
+					<tr>
+						<th>name</th>
+						<th>email</th>
+						<th>Role</th>
+						<th>HR</th>
+						<th>Supervisor</th>
+						<th>Enabled</th>
+						 
+					</tr>
+				</thead>
+				
+				<br>
+				<tbody>
+                    <tr th:each="User : ${employeesdetail}">
+                    
+                        <td th:text="${User.name}"></td>
+                        <td th:text="${User.email}"></td>
+                        <td th:text="${User.role}"></td>
+                        <td th:text="${User.HR}"></td>
+                        <td th:text="${User.Supervisor}"></td>
+                        <td th:text="${User.enabled}"></td>
+                    </tr>
+                </tbody>
+					
+				
+			</table>
+				</div>
+			</div>
+		</div>
+
+		
+	</section>
+	
+</body>
+</html>

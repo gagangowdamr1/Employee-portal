@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="normal/base::layout(~{::section})">
+	th:replace="admin/base::layout(~{::section})">
 <head>
 <meta charset="UTF-8" />
 <title>this is home page</title>
@@ -39,7 +39,7 @@
 						<th>Role</th>
 						<th>HR</th>
 						<th>Supervisor</th>
-						<th>Enabled</th>
+						<th>Action</th>
 						 
 					</tr>
 				</thead>
@@ -53,7 +53,10 @@
                         <td th:text="${User.role}"></td>
                         <td th:text="${User.HR}"></td>
                         <td th:text="${User.Supervisor}"></td>
-                        <td th:text="${User.enabled}"></td>
+                       <!--   <td> -->
+						<!-- The link which sends GET request to "/delete/{id}" (id is employee.id)  -->
+						<!--<a th:href="@{/delete/{id}(id=${User.id})}" class="waves-effect waves-light btn red litghten-2">Delete</a>
+					</td> -->
                     </tr>
                 </tbody>
 					

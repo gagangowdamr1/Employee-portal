@@ -29,4 +29,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return customUserDetails;
 	}
 
+	//	delete employee by id
+//	public String deleteUserById(Long id) {
+//		//		find an employee by id
+//		User emp = UserRepository.getById(id);
+//
+//		//		if there is not an employee who has the id, throw the error.
+//		if (emp == null) {
+//			throw new RuntimeException("Employee not found");
+//		}
+//
+//		//		delete an employee who has the id from the database
+//		UserRepository.deleteById(id);
+//		return "Deleted: " + emp.name();
+//	}
 }
+
+

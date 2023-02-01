@@ -82,16 +82,40 @@ import com.razorpay.RazorpayClient;
 		}
 
 		// dashboard home
-		@RequestMapping("/admin")
-		public @ResponseBody String dashboard(Model model, Principal principal) {
+		@RequestMapping("/index")
+		public  String dashboard(Model model, Principal principal) {
 			List<User> list=userRepository.findByRole("ROLE_USER");
 			model.addAttribute("title", "User Dashboard");
 			model.addAttribute("employeesdetail", list);
 			return "admin/admin_dashboard";
 		}
 
+		// delete employee handler
+
+//		@GetMapping("/delete/{id}")
+//		@Transactional
+//		public String deleteUser(@PathVariable("id") Integer Id, Model model, HttpSession session,
+//				Principal principal) {
+//			System.out.println("ID " + Id);
+//
+//			User user = this.userRepository.findById(Id).get();
+//			// check...Assignment..image delete
+//
+//			// delete old photo
+//
+//			User users = this.userRepository.getUserByUserName(principal.getName());
+//
+//			user.getUser().remove(user);
+//
+//			this.userRepository.save(user);
+//
+//			System.out.println("DELETED");
+//			session.setAttribute("message", new Message("Employee account deleted succesfully...", "success"));
+//
+//			return "redirect:/";
+//		}
 		// open add form handler
-		@GetMapping("/admin/add-contact")
+		@GetMapping("/add-contact")
 		public  String openAddContactForm(Model model) {
 			model.addAttribute("title", "Add Contact");
 			model.addAttribute("contact", new Contact());
@@ -100,7 +124,7 @@ import com.razorpay.RazorpayClient;
 		}
 
 		// processing add contact form
-		@PostMapping("/admin/process-contact")
+		@PostMapping("/process-contact")
 		public String processContact(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
 				Principal principal, HttpSession session) {
 
@@ -157,7 +181,7 @@ import com.razorpay.RazorpayClient;
 		// show contacts handler
 		// per page = 5[n]
 		// current page = 0 [page]
-		@GetMapping("/admin/show-contacts/{page}")
+		@GetMapping("/show-contacts/{page}")
 		public String showContacts(@PathVariable("page") Integer page, Model m, Principal principal) {
 			m.addAttribute("title", "Show User Contacts");
 			// contact ki list ko bhejni hai
@@ -226,7 +250,7 @@ import com.razorpay.RazorpayClient;
 		}
 
 		// open update form handler
-		@PostMapping("/admin/update-contact/{cid}")
+		@PostMapping("/update-contact/{cid}")
 		public String updateForm(@PathVariable("cid") Integer cid, Model m) {
 
 			m.addAttribute("title", "Update Contact");
@@ -238,6 +262,10 @@ import com.razorpay.RazorpayClient;
 			return "admin/update_form";
 		}
 
+		
+		
+		
+		
 		// update contact handler
 		@RequestMapping(value = "/process-update", method = RequestMethod.POST)
 		public String updateHandler(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,

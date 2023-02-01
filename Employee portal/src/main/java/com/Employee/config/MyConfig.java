@@ -1,5 +1,6 @@
 package com.Employee.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -7,15 +8,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.bind.annotation.GetMapping;
 import com.Employee.entities.User;
 
 @Configuration
 @EnableWebSecurity
 public class MyConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	  CustomLoginSucessHandler customLoginSuccessHandler;
+	
 	@Bean
 	public UserDetailsService getUserDetailService() {
 		return new UserDetailsServiceImpl();
@@ -31,7 +38,7 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setUserDetailsService(this.getUserDetailService());
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		System.out.println("hi");
+		
 		System.out.println(daoAuthenticationProvider);
 		return daoAuthenticationProvider;
 
@@ -51,12 +58,31 @@ public class MyConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/**").permitAll().and().formLogin()
 				.loginPage("/signin")
 				.loginProcessingUrl("/dologin")
-				.defaultSuccessUrl("/user/index")
+				.successHandler(customLoginSuccessHandler)
 				.and().csrf().disable();
 		
 		
 			
 		}
-	}
+	
+//	@GetMapping("/successHandler")
+//	  public String defaultAfterLogin(Authentication authentication) {
+//	   CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//
+//	   String url = "";
+//	   if (userDetails.hasRole("ADMIN")) {
+//	     url = "redirect:/admin/index";
+//	     // return new ModelAndView("redirect:/admin/index");
+//	 } else if (userDetails.hasRole("USER")) {
+//	     url = "redirect:/user/index";
+//	 }
+//
+//	 // return new ModelAndView("redirect:/user/home");
+//
+//	  return url;
+//	
+//	
+//	}
+}
 
 

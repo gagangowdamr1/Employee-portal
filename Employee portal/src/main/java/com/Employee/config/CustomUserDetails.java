@@ -60,4 +60,9 @@ public class CustomUserDetails implements UserDetails {
 		return true;
 	}
 
+	public boolean hasRole(String string) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }
